@@ -1,4 +1,5 @@
-﻿@*
+﻿@using Orchard.Environment.Descriptor.Models
+@*
     This will be used as alternative shape of Body_Editor shape.
     Its shape name is "Body_Editor__Markdown".
     More info: https://docs.orchardproject.net/en/latest/Documentation/Alternates/
@@ -6,9 +7,51 @@
 *@
 
 @{
-    Style.Include("simplemde.min.css");
-    Script.Include("simplemde.min.js");
-    // Document: https://github.com/sparksuite/simplemde-markdown-editor
-}
+    var propertyName = Model.PropertyName != null ? (string)Model.PropertyName : "Text";
 
-<h1> TODO add HTML elements for markdown here</h1>
+    Style.Require("FontAwesome");
+    Script.Require("jQuery");
+    Style.Include("easymde.min.css");
+    Script.Include("easymde.min.js");
+    Script.Include("codesnook-markdown.js");
+    Style.Include("codesnook-markdown.css");
+    // Document: https://github.com/Ionaru/easy-markdown-editor
+
+    Style.Include("darcula.min.css");
+    Script.Include("highlight.min.js");
+
+    var idPostfix = Html.FieldIdFor(m => m);
+    var shellDescriptor = WorkContext.Resolve<ShellDescriptor>();
+    var mediaLibraryEnabled = shellDescriptor.Features.Any(x => x.Name == "Orchard.MediaLibrary");
+
+    if (mediaLibraryEnabled)
+    {
+        Script.Require("jQueryColorBox");
+        Script.Require("OrchardMarkdown-MediaLibrary");
+        Style.Require("jQueryColorBox");
+    }
+    else
+    {
+        Script.Require("OrchardMarkdown-MediaPicker");
+    }
+
+    var textAreaAttributes = new Dictionary<string, object> {
+        {"id", "wmd-input" + "-" + idPostfix},
+        {"class", "wmd-input"},
+        {"data-mediapicker-uploadpath", Model.AddMediaPath},
+        {"data-mediapicker-title", T("Insert/Update Media")},
+        {"data-manage-media", AuthorizedFor(Orchard.MediaLibrary.Permissions.ManageMediaContent) ? "true" : "false" }
+    };
+
+    // The markdown editor itself doesn't seem to (yet) support autofocus, but we'll set it on the textarea nonetheless.
+    if (Model.AutoFocus == true)
+    {
+        textAreaAttributes["autofocus"] = "autofocus";
+    }
+
+}
+<div class="wmd-box has-grip">
+    <div class="wmd-innerbox">
+        @Html.TextArea(propertyName, (string)Model.Text, 25, 80, textAreaAttributes)
+    </div>
+</div>

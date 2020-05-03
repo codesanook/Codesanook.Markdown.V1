@@ -103,11 +103,36 @@
   <ItemGroup>
     <Compile Include="Migrations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceManifest.cs" />
     <Compile Include="Services\MarkdownFilter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Scripts\easymde.min.js" />
+    <Content Include="Scripts\highlight.min.js" />
+    <Content Include="Scripts\Markdown.Sanitizer.js" />
+    <Content Include="Scripts\Markdown.Sanitizer.min.js">
+      <DependentUpon>Markdown.Sanitizer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\orchard-markdown-media-library.js" />
+    <Content Include="Scripts\orchard-markdown-media-library.min.js">
+      <DependentUpon>orchard-markdown-media-library.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\orchard-markdown-media-picker.js" />
+    <Content Include="Scripts\orchard-markdown-media-picker.min.js">
+      <DependentUpon>orchard-markdown-media-picker.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\codesnook-markdown.js" />
+    <Content Include="Scripts\orchard-markdown.min.js">
+      <DependentUpon>codesnook-markdown.js</DependentUpon>
+    </Content>
+    <Content Include="Styles\codesnook-markdown.css" />
+    <Content Include="Styles\darcula.min.css" />
+    <Content Include="Styles\easymde.min.css" />
     <Content Include="Scripts\simplemde.min.js" />
+    <Content Include="Styles\orchard-markdown.min.js">
+      <DependentUpon>codesnook-markdown.css</DependentUpon>
+    </Content>
     <Content Include="Styles\simplemde.min.css" />
     <Content Include="Web.config" />
     <Content Include="Scripts\Web.config" />
@@ -124,6 +149,10 @@
       <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
       <Name>Orchard.Core</Name>
       <Private>$(MvcBuildViews)</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.MediaLibrary\Orchard.MediaLibrary.csproj">
+      <Project>{73a7688a-5bd3-4f7e-adfa-ce36c5a10e3b}</Project>
+      <Name>Orchard.MediaLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
