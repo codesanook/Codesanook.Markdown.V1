@@ -4,9 +4,10 @@ namespace Markdown {
     public class ResourceManifest : IResourceManifestProvider {
         public void BuildManifests(ResourceManifestBuilder builder) {
             var manifest = builder.Add();
-            manifest.DefineScript("OrchardMarkdown-MediaPicker").SetUrl("orchard-markdown-media-picker.min.js", "orchard-markdown-media-picker.js");
-            manifest.DefineScript("OrchardMarkdown-MediaLibrary").SetUrl("orchard-markdown-media-library.min.js", "orchard-markdown-media-library.js");
-            manifest.DefineStyle("FontAwesome4.7").SetUrl("font-awesome.min.css", "font-awesome.css").SetVersion("4.7.0").SetCdn("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", "//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css");
+            manifest.DefineScript("Markdown_Converter").SetUrl("Markdown.Converter.min.js", "Markdown.Converter.js");
+            manifest.DefineScript("Markdown_Sanitizer").SetUrl("Markdown.Sanitizer.min.js", "Markdown.Sanitizer.js").SetDependencies("Markdown_Converter");
+            manifest.DefineScript("Markdown_Editor").SetUrl("Markdown.Editor.min.js", "Markdown.Editor.js").SetDependencies("Markdown_Sanitizer");
+            manifest.DefineScript("CodesnookMarkdown").SetUrl("codesnook-markdown.min.js", "codesnook-markdown.js").SetDependencies("Markdown_Editor");
         }
     }
 }

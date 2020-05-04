@@ -11,8 +11,12 @@
 
     Style.Require("FontAwesome");
     Script.Require("jQuery");
+    Script.Require("jQueryColorBox");
+    Style.Require("jQueryColorBox");
+
     Style.Include("easymde.min.css");
     Script.Include("easymde.min.js");
+
     Script.Include("codesnook-markdown.js");
     Style.Include("codesnook-markdown.css");
     // Document: https://github.com/Ionaru/easy-markdown-editor
@@ -21,19 +25,6 @@
     Script.Include("highlight.min.js");
 
     var idPostfix = Html.FieldIdFor(m => m);
-    var shellDescriptor = WorkContext.Resolve<ShellDescriptor>();
-    var mediaLibraryEnabled = shellDescriptor.Features.Any(x => x.Name == "Orchard.MediaLibrary");
-
-    if (mediaLibraryEnabled)
-    {
-        Script.Require("jQueryColorBox");
-        Script.Require("OrchardMarkdown-MediaLibrary");
-        Style.Require("jQueryColorBox");
-    }
-    else
-    {
-        Script.Require("OrchardMarkdown-MediaPicker");
-    }
 
     var textAreaAttributes = new Dictionary<string, object> {
         {"id", "wmd-input" + "-" + idPostfix},
