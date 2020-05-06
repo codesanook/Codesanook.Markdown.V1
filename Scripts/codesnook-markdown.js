@@ -8,6 +8,7 @@
             singleLineBreaks: true,
             codeSyntaxHighlighting: true,
         },
+        promptURLs: true,
         toolbar: [
             'bold',
             'italic',
@@ -25,7 +26,24 @@
             'ordered-list',
             'clean-block',
             '|',
-            'link',
+            {
+                name: 'link',
+                action: (editor) => {
+                    var cm = editor.codemirror;
+                    var stat = editor.getState(cm);
+                    var options = editor.options;
+                    var url = 'https://';
+                    if (options.promptURLs) {
+                        url = prompt(options.promptTexts.link, 'https://');
+                        if (!url) {
+                            return false;
+                        }
+                    }
+                    _replaceSelection(cm, stat.link, options.insertTexts.link, url);
+                },
+                className: 'fa fa-link',
+                title: 'Create Link',
+            },
             {
                 name: 'link-image',
                 action: (editor) => {
@@ -88,7 +106,7 @@
                     });
                 },
                 className: 'fa fa-image',
-                title: 'Impoert Image',
+                title: 'Import Image',
 
             },
             'table',
@@ -107,12 +125,17 @@
 })();
 
 function _replaceSelection(cm, active, startEnd, url) {
+
+
+    var linkdescription = "enter link description here";
+    var imagedescription = "enter image description here";
     if (/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
         return;
 
     var text;
     var start = startEnd[0];
     var end = startEnd[1];
+    var isImage = start === "![](";
     var startPoint = {},
         endPoint = {};
     Object.assign(startPoint, cm.getCursor('start'));
@@ -123,7 +146,7 @@ function _replaceSelection(cm, active, startEnd, url) {
     }
     if (active) {
         text = cm.getLine(startPoint.line);
-        start = text.slice(0, startPoint.ch);
+        start = text.slice(0, startPoint.ch) + (isImage ? imagedescription : linkdescription);
         end = text.slice(startPoint.ch);
         cm.replaceRange(start + end, {
             line: startPoint.line,
@@ -131,6 +154,12 @@ function _replaceSelection(cm, active, startEnd, url) {
         });
     } else {
         text = cm.getSelection();
+        console.log(start);
+        if (isImage) {
+            start = '![' + imagedescription+'](';
+        } else {
+            start = '[' + linkdescription;
+        }
         cm.replaceSelection(start + text + end);
 
         startPoint.ch += start.length;
