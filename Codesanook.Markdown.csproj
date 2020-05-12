@@ -116,6 +116,7 @@
     </Content>
     <Content Include="Styles\codesnook-markdown.css" />
     <Content Include="Styles\darcula.min.css" />
+    <Content Include="Styles\easymde.css" />
     <Content Include="Styles\easymde.min.css" />
     <Content Include="Styles\orchard-markdown.min.js">
       <DependentUpon>codesnook-markdown.css</DependentUpon>

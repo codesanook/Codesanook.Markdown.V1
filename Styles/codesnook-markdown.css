@@ -1,3 +1,9 @@
 .editor-toolbar > button {
     color: #000 !important;
 }
+
+
+.editor-preview pre {
+    display: table;
+    width: 100%;
+}
