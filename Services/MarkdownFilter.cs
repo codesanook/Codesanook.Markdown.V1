@@ -7,10 +7,10 @@ namespace Codesanook.Markdown.Services {
 
         public string ProcessContent(string text, string flavor) =>
             string.Equals(flavor, "markdown", StringComparison.OrdinalIgnoreCase)
-                ? MarkdownReplace(text)
+                ? TransformMarkdownContent(text)
                 : text;
 
-        private static string MarkdownReplace(string text) {
+        private static string TransformMarkdownContent(string text) {
             if (string.IsNullOrEmpty(text)) return string.Empty;
 
             var markdown = new MarkdownSharp.Markdown();
