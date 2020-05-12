@@ -2,12 +2,14 @@
 
 using System.Linq;
 using Orchard.ContentManagement.MetaData;
+using Orchard.Core.Common.Models;
 using Orchard.Data.Migration;
 
 namespace Markdown {
 
     public class Migrations : DataMigrationImpl {
         private readonly IContentDefinitionManager contentDefinitionManager;
+        private const string BlogPostTypeName = "BlogPost";
 
         public Migrations(IContentDefinitionManager contentDefinitionManager) =>
             this.contentDefinitionManager = contentDefinitionManager;
@@ -21,18 +23,18 @@ namespace Markdown {
         }
 
         private bool DoesBodyPartOfBlogPostTypeExist() {
-            var blogPost = contentDefinitionManager.GetTypeDefinition("BlogPost");
+            var blogPost = contentDefinitionManager.GetTypeDefinition(BlogPostTypeName);
             if (blogPost == null) return false;
 
-            var bodyPart = blogPost.Parts.SingleOrDefault(x => x.PartDefinition.Name == "BodyPart");
+            var bodyPart = blogPost.Parts.SingleOrDefault(x => x.PartDefinition.Name == nameof(BodyPart));
             return bodyPart != null;
         }
 
         private void SetEditorToMarkdown() {
             contentDefinitionManager.AlterTypeDefinition(
-                "BlogPost",
+                BlogPostTypeName,
                 build => build.WithPart(
-                    "BodyPart",
+                    nameof(BodyPart),
                     // Change setting of content type
                     // https://docs.orchardproject.net/en/latest/Documentation/Adding-custom-settings/#defining-settings-for-content-types
                     cfg => cfg.WithSetting("BodyTypePartSettings.Flavor", "markdown")
