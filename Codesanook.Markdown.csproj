@@ -111,16 +111,10 @@
     <Content Include="Scripts\easymde.min.js" />
     <Content Include="Scripts\highlight.min.js" />
     <Content Include="Scripts\codesnook-markdown.js" />
-    <Content Include="Scripts\orchard-markdown.min.js">
-      <DependentUpon>codesnook-markdown.js</DependentUpon>
-    </Content>
     <Content Include="Styles\codesnook-markdown.css" />
     <Content Include="Styles\darcula.min.css" />
     <Content Include="Styles\easymde.css" />
     <Content Include="Styles\easymde.min.css" />
-    <Content Include="Styles\orchard-markdown.min.js">
-      <DependentUpon>codesnook-markdown.css</DependentUpon>
-    </Content>
     <Content Include="Web.config" />
     <Content Include="Scripts\Web.config" />
     <Content Include="Styles\Web.config" />
