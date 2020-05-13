@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 name: 'link',
                 action: (editor) => {
                     var codemirror = editor.codemirror;
-                    var stat = editor.getState(cm);
+                    var stat = editor.getState(codemirror);
                     var options = editor.options;
                     var url = 'https://';
                     if (options.promptURLs) {
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             if (img.length > 0 && img.attr('src')) {
 
                                 var codemirror = editor.codemirror;
-                                var stat = editor.getState(cm);
+                                var stat = editor.getState(codemirror);
                                 var options = editor.options;
                                 replaceSelection(codemirror, stat.image, options.insertTexts.image, img.attr('src'));
                             }
@@ -110,10 +110,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 function replaceSelection(codemirror, active, startEnd, url) {
 
-
     var linkdescription = "enter link description here";
     var imagedescription = "enter image description here";
-    if (/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
+    if (/editor-preview-active/.test(codemirror.getWrapperElement().lastChild.className))
         return;
 
     var text;
@@ -122,8 +121,8 @@ function replaceSelection(codemirror, active, startEnd, url) {
     var isImage = start === "![](";
     var startPoint = {},
         endPoint = {};
-    Object.assign(startPoint, cm.getCursor('start'));
-    Object.assign(endPoint, cm.getCursor('end'));
+    Object.assign(startPoint, codemirror.getCursor('start'));
+    Object.assign(endPoint, codemirror.getCursor('end'));
     if (url) {
         start = start.replace('#url#', url);  // url is in start for upload-image
         end = end.replace('#url#', url);
@@ -152,6 +151,6 @@ function replaceSelection(codemirror, active, startEnd, url) {
             endPoint.ch += start.length;
         }
     }
-    cm.setSelection(startPoint, endPoint);
-    cm.focus();
+    codemirror.setSelection(startPoint, endPoint);
+    codemirror.focus();
 }
