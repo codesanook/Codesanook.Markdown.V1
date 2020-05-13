@@ -2,6 +2,16 @@
     color: #000 !important;
 }
 
+    .editor-toolbar > button:hover {
+        background: #fcfcfc;
+        border-bottom: unset !important;
+    }
+
+.editor-preview-side img {
+    max-width: 100%;
+}
+
+
 
 .editor-preview pre {
     display: table;
