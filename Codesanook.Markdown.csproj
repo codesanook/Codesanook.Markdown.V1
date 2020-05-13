@@ -110,8 +110,8 @@
     <Content Include="packages.config" />
     <Content Include="Scripts\easymde.min.js" />
     <Content Include="Scripts\highlight.min.js" />
-    <Content Include="Scripts\codesnook-markdown.js" />
-    <Content Include="Styles\codesnook-markdown.css" />
+    <Content Include="Scripts\codesanook-markdown.js" />
+    <Content Include="Styles\codesanook-markdown.css" />
     <Content Include="Styles\darcula.min.css" />
     <Content Include="Styles\easymde.css" />
     <Content Include="Styles\easymde.min.css" />
