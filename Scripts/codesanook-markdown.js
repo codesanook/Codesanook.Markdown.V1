@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
     var easyMDE = new EasyMDE({
         autoDownloadFontAwesome: false,
         spellChecker: false,
@@ -19,8 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
             {
                 name: 'link',
                 action: (editor) => {
-                    var codemirror = editor.codemirror;
-                    var stat = editor.getState(codemirror);
+                    var codeMirror = editor.codemirror;
+                    var stat = editor.getState(codeMirror);
                     var options = editor.options;
                     var url = 'https://';
                     if (options.promptURLs) {
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             return false;
                         }
                     }
-                    replaceSelection(codemirror, stat.link, options.insertTexts.link, url);
+                    replaceSelection(codeMirror, stat.link, options.insertTexts.link, url);
                 },
                 className: 'fa fa-link',
                 title: 'Create Link',
@@ -77,10 +78,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             // if this is an image, use the callback which will format it in markdown
                             if (img.length > 0 && img.attr('src')) {
 
-                                var codemirror = editor.codemirror;
-                                var stat = editor.getState(codemirror);
+                                var codeMirror = editor.codemirror;
+                                var stat = editor.getState(codeMirror);
                                 var options = editor.options;
-                                replaceSelection(codemirror, stat.image, options.insertTexts.image, img.attr('src'));
+                                replaceSelection(codeMirror, stat.image, options.insertTexts.image, img.attr('src'));
                             }
 
                             // otherwise, insert the raw HTML
@@ -108,49 +109,49 @@ document.addEventListener("DOMContentLoaded", function () {
         ]
     });
 });
-function replaceSelection(codemirror, active, startEnd, url) {
 
-    var linkdescription = "enter link description here";
-    var imagedescription = "enter image description here";
-    if (/editor-preview-active/.test(codemirror.getWrapperElement().lastChild.className))
+function replaceSelection(codeMirror, active, startEnd, url) {
+
+    var imageDescription = "Enter image description here";
+    var linkDescription = "Enter link description here";
+    if (/editor-preview-active/.test(codeMirror.getWrapperElement().lastChild.className))
         return;
 
     var text;
     var start = startEnd[0];
     var end = startEnd[1];
-    var isImage = start === "![](";
-    var startPoint = {},
-        endPoint = {};
-    Object.assign(startPoint, codemirror.getCursor('start'));
-    Object.assign(endPoint, codemirror.getCursor('end'));
+    var isImage = start === "![";
+    var startPoint = {}, endPoint = {};
+
+    Object.assign(startPoint, codeMirror.getCursor('start'));
+    Object.assign(endPoint, codeMirror.getCursor('end'));
     if (url) {
         start = start.replace('#url#', url);  // url is in start for upload-image
         end = end.replace('#url#', url);
     }
+
     if (active) {
-        text = codemirror.getLine(startPoint.line);
-        start = text.slice(0, startPoint.ch) + (isImage ? imagedescription : linkdescription);
+        text = codeMirror.getLine(startPoint.line);
+        start = text.slice(0, startPoint.ch) + (isImage ? imageDescription : linkDescription);
         end = text.slice(startPoint.ch);
-        codemirror.replaceRange(start + end, {
+        codeMirror.replaceRange(start + end, {
             line: startPoint.line,
             ch: 0,
         });
     } else {
-        text = codemirror.getSelection();
+        text = codeMirror.getSelection();
         if (!text) {
-            if (isImage) {
-                start = '![' + imagedescription + '](';
-            } else {
-                start = '[' + linkdescription;
-            }
+            start = isImage ? '![' + imageDescription : '[' + linkDescription;
         }
-        codemirror.replaceSelection(start + text + end);
 
+        codeMirror.replaceSelection(start + text + end);
         startPoint.ch += start.length;
         if (startPoint !== endPoint) {
             endPoint.ch += start.length;
         }
     }
-    codemirror.setSelection(startPoint, endPoint);
-    codemirror.focus();
+
+    codeMirror.setSelection(startPoint, endPoint);
+    codeMirror.focus();
 }
+
