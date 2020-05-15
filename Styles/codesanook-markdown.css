@@ -1,10 +1,15 @@
 .editor-toolbar > button {
     color: #000 !important;
+    text-shadow: unset !important;
+    box-shadow: unset !important;
+    height: 30px !important;
+    border: 1px solid transparent !important;
+    border-radius: 3px !important;
 }
 
     .editor-toolbar > button:hover {
         background: #fcfcfc;
-        border-bottom: unset !important;
+        border-color: #95a5a6 !important;
     }
 
 .editor-preview-side img {
