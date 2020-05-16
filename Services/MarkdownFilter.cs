@@ -1,6 +1,6 @@
 ﻿using System;
-using Orchard.Services;
 using Markdig;
+using Orchard.Services;
 
 namespace Codesanook.Markdown.Services {
 
@@ -11,10 +11,14 @@ namespace Codesanook.Markdown.Services {
                 ? TransformMarkdownContent(text)
                 : text;
 
-        private static string TransformMarkdownContent(string text) {
-            if (string.IsNullOrEmpty(text)) return string.Empty;
+        private static string TransformMarkdownContent(string markdownContent) {
+            if (string.IsNullOrEmpty(markdownContent)) return string.Empty;
+            var pipeline = new MarkdownPipelineBuilder()
+                .UseTaskLists()
+                .UsePipeTables()
+                .Build();
+            return Markdig.Markdown.ToHtml(markdownContent, pipeline);
 
-            return Markdig.Markdown.ToHtml(text);
         }
     }
 }
