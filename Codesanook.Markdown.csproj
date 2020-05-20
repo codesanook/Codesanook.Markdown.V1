@@ -122,7 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Scripts\highlight-initialization.js" />
+    <Content Include="Scripts\highlight-init.js" />
     <Content Include="Scripts\easymde.min.js" />
     <Content Include="Scripts\highlight.min.js" />
     <Content Include="Scripts\codesanook-markdown.js" />

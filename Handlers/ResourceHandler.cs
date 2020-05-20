@@ -16,9 +16,11 @@ namespace Codesanook.Markdown.Handlers {
                 context.ContentItem.Has(typeof(BodyPart)) &&
                 context.DisplayType == "Detail"
             ){
-                resourceManager.Value.Require("stylesheet", "HighlightJS").AtHead();
-                resourceManager.Value.Require("script", "HighlightJS").AtHead();
-                resourceManager.Value.Require("script", "HighlightJSInitialization").AtHead();
+                resourceManager.Value.Require("stylesheet", "highlight").AtHead();
+                resourceManager.Value.Require("script", "highlight").AtHead();
+                resourceManager.Value.Require("script", "highlight-init").AtHead();
+
+                resourceManager.Value.Require("stylesheet", "codesanook-markdown").AtHead();
             }
 
             base.BuildDisplayShape(context);
