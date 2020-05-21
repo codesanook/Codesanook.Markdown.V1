@@ -27,6 +27,8 @@
 
 table {
     border-spacing: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
     table td, table th {
@@ -36,4 +38,5 @@ table {
 
     table th {
         text-align: center;
+        white-space: nowrap;
     }
